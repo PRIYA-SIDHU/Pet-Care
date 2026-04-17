@@ -15,7 +15,7 @@ export default function HowQR() {
        
         <div className="p-6 bg-white shadow rounded-xl">
           <h3 className="font-bold">1. Scan QR</h3>
-          <p>Scan the QR code on dog collar</p>
+          <p>Scan the QR code on dog collaraar</p>
         </div>
 
         <div className="p-6 bg-white shadow rounded-xl">
