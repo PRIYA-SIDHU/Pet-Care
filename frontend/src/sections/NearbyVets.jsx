@@ -24,7 +24,7 @@ export default function NearbyVets() {
         >
             <div className="p-6 lg:p-8">
                 <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg">
                         <Stethoscope className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -77,7 +77,7 @@ export default function NearbyVets() {
 
                     {/* Hover Overlay */}
                     <div 
-                    onClick={openNearbyVets}
+                    
                     className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
                         <div className="bg-white rounded-2xl px-6 py-4 shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-95 group-hover:scale-100 z-50">
                             <div className="flex items-center gap-3">
@@ -121,7 +121,7 @@ export default function NearbyVets() {
                 {/* Direct Button */}
                 <button
                     onClick={openNearbyVets}
-                    className="w-full mt-6 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg shadow-blue-500/25 transition-all duration-200 flex items-center justify-center gap-3"
+                    className="w-full mt-6 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg shadow-green-500/25 transition-all duration-200 flex items-center justify-center gap-3"
                 >
                     <Navigation className="w-5 h-5" />
                     <span>Find Vets in Google Maps</span>
