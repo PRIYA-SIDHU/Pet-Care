@@ -26,7 +26,10 @@ export default function DogDetails() {
           <p><b>Phone:</b> {phone}</p>
         </div>
 
-        <button className="mt-5 w-full bg-green-500 text-white py-2 rounded-lg">
+        <button 
+          onClick={() => phone && (window.location.href = `tel:${phone}`)}
+          className="mt-5 w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors"
+        >
           Call Owner
         </button>
 

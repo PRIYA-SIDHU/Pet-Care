@@ -9,13 +9,13 @@ export default function QRPage() {
 
   const qrRef = useRef()
 
+  // Encode form data in URL so DogProfile can read it when scanned
   const qrData = form
-    ? `Name: ${form.name}
-Breed: ${form.breed}
-Owner: ${form.owner}
-Phone: ${form.phone}
-Address: ${form.address}`
+    ? `${window.location.origin}/pet/${encodeURIComponent(form.name)}?breed=${encodeURIComponent(form.breed)}&owner=${encodeURIComponent(form.owner)}&phone=${encodeURIComponent(form.phone)}&address=${encodeURIComponent(form.address)}`
     : ""
+
+  // Print generated link in console for debugging
+  console.log("Generated QR Link:", qrData)
 
   // 📥 DOWNLOAD FUNCTION (UPDATED 🔥)
   const downloadQR = () => {

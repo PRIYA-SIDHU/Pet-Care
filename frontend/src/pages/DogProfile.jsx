@@ -1,20 +1,23 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Phone, MapPin, User, Heart, PawPrint, Shield, Calendar } from 'lucide-react'
  
 export default function DogProfile() {
   const { dogId } = useParams()
- 
-  // Mock data - in production this would come from an API
+  const location = useLocation()
+  
+  // Parse query parameters from URL (data from QR scan)
+  const queryParams = new URLSearchParams(location.search)
+  
   const dogData = {
-    name: 'Buddy',
-    breed: 'Golden Retriever',
-    age: '3 years',
+    name: dogId ? decodeURIComponent(dogId) : 'Unknown Dog',
+    breed: queryParams.get('breed') || 'Unknown Breed',
+    age: queryParams.get('age') || '',
     photo: 'https://images.unsplash.com/photo-1552053831-71594a27632d?w=400&h=400&fit=crop',
     owner: {
-      name: 'Sarah Johnson',
-      address: '123 Green Valley Road, Apt 4B, Springfield, IL 62701',
-      phone: '+1 (555) 123-4567'
+      name: queryParams.get('owner') || 'Unknown Owner',
+      address: queryParams.get('address') || 'No address provided',
+      phone: queryParams.get('phone') || ''
     },
     medicalInfo: {
       vaccinated: true,
@@ -24,7 +27,10 @@ export default function DogProfile() {
   }
  
   const handleCall = () => {
-    window.location.href = `tel:${dogData.owner.phone.replace(/\s/g, '')}`
+    const phone = dogData.owner.phone
+    if (phone) {
+      window.location.href = `tel:${phone.replace(/\s/g, '')}`
+    }
   }
  
   return (
@@ -145,23 +151,27 @@ export default function DogProfile() {
                   </div>
                 </div>
  
-                {/* Call Button */}
-                <motion.button
-                  onClick={handleCall}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg shadow-green-500/25 transition-all duration-200 flex items-center justify-center gap-3"
-                >
-                  <Phone className="w-6 h-6" />
-                  <span className="text-lg">Call Owner Now</span>
-                  <span className="bg-white/20 px-3 py-1 rounded-full text-sm">
-                    {dogData.owner.phone}
-                  </span>
-                </motion.button>
- 
-                <p className="text-center text-sm text-gray-400 mt-4">
-                  Tap the button to open your phone dialer
-                </p>
+                {/* Call Button - only show if phone exists */}
+                {dogData.owner.phone && (
+                  <>
+                    <motion.button
+                      onClick={handleCall}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg shadow-green-500/25 transition-all duration-200 flex items-center justify-center gap-3"
+                    >
+                      <Phone className="w-6 h-6" />
+                      <span className="text-lg">Call Owner Now</span>
+                      <span className="bg-white/20 px-3 py-1 rounded-full text-sm">
+                        {dogData.owner.phone}
+                      </span>
+                    </motion.button>
+
+                    <p className="text-center text-sm text-gray-400 mt-4">
+                      Tap the button to open your phone dialer
+                    </p>
+                  </>
+                )}
               </motion.div>
             </div>
           </div>
