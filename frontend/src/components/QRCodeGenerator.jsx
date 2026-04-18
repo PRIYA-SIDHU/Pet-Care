@@ -40,107 +40,155 @@ export default function QRCodeGenerator() {
   }
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-blue-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-white pt-20 sm:pt-24">
+      <div className="flex items-center justify-center min-h-[calc(100vh-80px)] p-4 sm:p-6">
+        <div className="bg-white shadow-2xl rounded-3xl p-6 sm:p-8 max-w-2xl lg:max-w-4xl w-full mx-auto transform transition-all duration-300 scale-100">
+          <h2 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6 text-gray-800">
+           FILL IT ONCE ,SCAT IT ANYTIME 
+          </h2>
 
-      <div className="bg-white/80 backdrop-blur-lg p-8 rounded-2xl shadow-xl w-full max-w-md">
-
-        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
-          GENERATE QR CODE🐾
-        </h2>
-
-        <div className="space-y-4">
-
-          <input name="name" placeholder="Dog Name" onChange={handleChange} className="input"/>
-          <input name="breed" placeholder="Breed" onChange={handleChange} className="input"/>
-          <input name="owner" placeholder="Owner Name" onChange={handleChange} className="input"/>
-          <input name="phone" placeholder="Phone" onChange={handleChange} className="input"/>
-          <input name="address" placeholder="Address" onChange={handleChange} className="input"/>
-
-          {/* 🔥 UPLOAD BOX */}
-          <label className="upload-box">
+          <div className="space-y-3 sm:space-y-4">
             <input 
-              type="file" 
-              accept="image/*" 
-              onChange={handleImageUpload}
-              hidden
+              name="name" 
+              placeholder="Dog Name" 
+              onChange={handleChange} 
+              className="input"
+            />
+            <input 
+              name="breed" 
+              placeholder="Breed" 
+              onChange={handleChange} 
+              className="input"
+            />
+            <input 
+              name="owner" 
+              placeholder="Owner Name" 
+              onChange={handleChange} 
+              className="input"
+            />
+            <input 
+              name="phone" 
+              placeholder="Phone" 
+              onChange={handleChange} 
+              className="input"
+            />
+            <input 
+              name="address" 
+              placeholder="Address" 
+              onChange={handleChange} 
+              className="input"
             />
 
-            {image ? (
-              <div className="file-preview-center">
-                <img src={image} alt="dog" className="small-img" />
+            {/* UPLOAD BOX */}
+            <label className="upload-box">
+              <input 
+                type="file" 
+                accept="image/*" 
+                onChange={handleImageUpload}
+                hidden
+              />
 
-                <div className="file-info">
-                  <p className="file-name">{fileName}</p>
-                  <button 
-                    type="button"
-                    className="remove-btn"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setImage(null)
-                      setFileName("")
-                    }}
-                  >
-                    ❌ Remove
-                  </button>
+              {image ? (
+                <div className="file-preview-center">
+                  <img src={image} alt="dog" className="small-img" />
+
+                  <div className="file-info">
+                    <p className="file-name">{fileName}</p>
+                    <button 
+                      type="button"
+                      className="remove-btn"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        setImage(null)
+                        setFileName("")
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div className="upload-text">
-                Click to Upload your dog photo 🐶
-              </div>
-            )}
-          </label>
+              ) : (
+                <div className="upload-text">
+                  Click to Upload your dog photo
+                </div>
+              )}
+            </label>
 
           <button onClick={generateQR} className="btn">
-            Generate QR 🐶
+            Generate QR 
           </button>
 
         </div>
       </div>
-
-      {/* 🔧 COMMON STYLES */}
+      {/* COMMON STYLES */}
       <style>{`
         .input {
           width: 100%;
-          padding: 12px;
-          border: 1px solid #e5e7eb;
-          border-radius: 8px;
+          padding: 12px 16px;
+          border: 2px solid #e7e7e7;
+          border-radius: 12px;
+          font-size: 16px;
+          transition: all 0.3s ease;
+          background-color: #fafafa;
+        }
+
+        .input:focus {
+          outline: none;
+          border-color: #10b981;
+          box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+          background-color: white;
+        }
+
+        .input::placeholder {
+          color: #9ca3af;
         }
 
         .btn {
           width: 100%;
-          background: linear-gradient(to right, #f472b6, #ec4899);
+          background: linear-gradient(to right, #10b981, #059669);
           color: white;
-          padding: 12px;
-          border-radius: 8px;
+          padding: 14px 20px;
+          border-radius: 12px;
           font-weight: 600;
+          font-size: 16px;
           cursor: pointer;
+          transition: all 0.3s ease;
+          border: none;
+          box-shadow: 0 4px 6px rgba(16, 185, 129, 0.1);
+        }
+
+        .btn:hover {
+          background: linear-gradient(to right, #059669, #047857);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 12px rgba(16, 185, 129, 0.2);
         }
 
         .upload-box {
           width: 100%;
-          height: 160px;
+          height: 180px;
           border: 2px dashed #d1d5db;
-          border-radius: 12px;
+          border-radius: 16px;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          transition: 0.3s;
+          transition: all 0.3s ease;
           background-color: #f9fafb;
           overflow: hidden;
-          padding: 10px;
+          padding: 16px;
         }
 
         .upload-box:hover {
-          border-color: #ec4899;
-          background-color: #fff1f2;
+          border-color: #10b981;
+          background-color: #f0fdf4;
+          transform: scale(1.02);
         }
 
         .upload-text {
           color: #6b7280;
           font-weight: 500;
           text-align: center;
+          font-size: 15px;
         }
 
         .file-preview-center {
@@ -148,16 +196,17 @@ export default function QRCodeGenerator() {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          gap: 8px;
+          gap: 12px;
           width: 100%;
         }
 
         .small-img {
-          width: 70px;
-          height: 70px;
+          width: 80px;
+          height: 80px;
           object-fit: cover;
-          border-radius: 10px;
-          border: 1px solid #ddd;
+          border-radius: 12px;
+          border: 2px solid #e5e7eb;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .file-info {
@@ -174,6 +223,7 @@ export default function QRCodeGenerator() {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          font-weight: 500;
         }
 
         .remove-btn {
@@ -182,14 +232,158 @@ export default function QRCodeGenerator() {
           color: #ef4444;
           font-size: 13px;
           cursor: pointer;
-          margin-top: 2px;
+          margin-top: 4px;
+          transition: all 0.2s ease;
+          font-weight: 500;
         }
 
         .remove-btn:hover {
           text-decoration: underline;
+          color: #dc2626;
         }
-      `}</style>
 
-    </section>
+        @media (max-width: 640px) {
+          .input {
+            padding: 10px 14px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background-color: #fafafa;
+          }
+
+          .input:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+            background-color: white;
+          }
+
+          .input::placeholder {
+            color: #9ca3af;
+          }
+
+          .btn {
+            width: 100%;
+            background: linear-gradient(to right, #10b981, #059669);
+            color: white;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.1);
+          }
+
+          .btn:hover {
+            background: linear-gradient(to right, #059669, #047857);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(16, 185, 129, 0.2);
+          }
+
+          .upload-box {
+            width: 100%;
+            height: 180px;
+            border: 2px dashed #d1d5db;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #f9fafb;
+            overflow: hidden;
+            padding: 16px;
+          }
+
+          .upload-box:hover {
+            border-color: #10b981;
+            background-color: #f0fdf4;
+            transform: scale(1.02);
+          }
+
+          .upload-text {
+            color: #6b7280;
+            font-weight: 500;
+            text-align: center;
+            font-size: 15px;
+          }
+
+          .file-preview-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+          }
+
+          .small-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
+
+          .file-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .file-name {
+            font-size: 14px;
+            color: #374151;
+            text-align: center;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: 500;
+          }
+
+          .remove-btn {
+            background: none;
+            border: none;
+            color: #ef4444;
+            font-size: 13px;
+            cursor: pointer;
+            margin-top: 4px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+          }
+
+          .remove-btn:hover {
+            text-decoration: underline;
+            color: #dc2626;
+          }
+
+          @media (max-width: 640px) {
+            .input {
+              padding: 10px 14px;
+              font-size: 15px;
+            }
+            
+            .btn {
+              padding: 12px 16px;
+              font-size: 15px;
+            }
+            
+            .upload-box {
+              height: 160px;
+              padding: 12px;
+            }
+            
+            .small-img {
+              width: 70px;
+              height: 70px;
+            }
+          }
+        `}</style>
+
+      </div>
+    </div>
   )
 }
