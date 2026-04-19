@@ -16,6 +16,7 @@ import QRPage from "./components/QRPage"
 import DogProfile from './pages/DogProfile'
 import DogCareAI from './pages/DogCareAI'
 import NearbyVets from './sections/NearbyVets'
+import NGOSection from './components/NGOSection'
 
 
 
@@ -32,9 +33,11 @@ function LandingPage() {
         <Features />
         <Innovation />
         <HowQR />
+          <NGOSection /> 
         <Impact />
         <FutureScope />
         <NearbyVets/>
+    
       </main>
       <Footer />
     </div>
