@@ -10,7 +10,10 @@ export default function QRCodeGenerator() {
     breed: "",
     owner: "",
     phone: "",
-    address: ""
+    address: "",
+    vaccinated: "",
+    allergies: "",
+    lastCheckup: ""
   })
 
   const [image, setImage] = useState(null)
@@ -42,7 +45,7 @@ export default function QRCodeGenerator() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-white pt-20 sm:pt-24">
       <div className="flex items-center justify-center min-h-[calc(100vh-80px)] p-4 sm:p-6">
-        <div className="bg-white shadow-2xl rounded-3xl p-6 sm:p-8 max-w-2xl lg:max-w-4xl w-full mx-auto transform transition-all duration-300 scale-100">
+        <div className="bg-white shadow-2xl rounded-3xl p-6 sm:p-8 w-full max-w-md sm:max-w-lg lg:max-w-xl mx-auto">
           <h2 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6 text-gray-800">
            FILL IT ONCE ,SCAT IT ANYTIME 
           </h2>
@@ -75,6 +78,35 @@ export default function QRCodeGenerator() {
             <input 
               name="address" 
               placeholder="Address" 
+              onChange={handleChange} 
+              className="input"
+            />
+            
+            {/* VACCINATED FIELD */}
+            <select 
+              name="vaccinated" 
+              onChange={handleChange} 
+              className="input"
+            >
+              <option value="">Vaccinated?</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+
+            {/* ALLERGIES FIELD */}
+            <textarea 
+              name="allergies" 
+              placeholder="Any allergies or medical conditions"
+              onChange={handleChange} 
+              className="input"
+              style={{ height: '80px', resize: 'none' }}
+            />
+              <h2>Last Checkup Date:</h2>
+            {/* LAST CHECKUP FIELD */}
+            <input 
+              name="lastCheckup" 
+              placeholder="Last Checkup Date"
+              type="date"
               onChange={handleChange} 
               className="input"
             />
