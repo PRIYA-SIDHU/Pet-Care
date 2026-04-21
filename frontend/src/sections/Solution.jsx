@@ -1,27 +1,26 @@
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
-import { Upload, Scan, FileText, CheckCircle } from 'lucide-react'
 
 const steps = [
   {
-    icon: Upload,
-    title: 'Upload',
-    description: 'Upload an image or video of your dog',
+    number: '1',
+    title: 'Upload Clear Photo',
+    description: 'Upload a clear, well-lit image of your dog',
   },
   {
-    icon: Scan,
-    title: 'AI Scan',
-    description: 'Our AI analyzes visual symptoms instantly',
+    number: '2',
+    title: 'AI Scans for Infection',
+    description: 'Detects skin infections, inflammation, lesions & diseases',
   },
   {
-    icon: FileText,
-    title: 'Report',
-    description: 'Get detailed health assessment report',
+    number: '3',
+    title: 'Get Detailed Report',
+    description: 'View detected conditions and severity assessment',
   },
   {
-    icon: CheckCircle,
-    title: 'Action',
-    description: 'Follow recommended next steps',
+    number: '4',
+    title: 'Take Action',
+    description: 'Consult vets or seek emergency care as needed',
   },
 ]
 
@@ -53,22 +52,24 @@ export default function Solution() {
               </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="space-y-4">
               {steps.map((step, index) => (
                 <motion.div
-                  key={step.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  key={step.number}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="flex items-start gap-4 p-4 rounded-2xl bg-white/60 backdrop-blur-sm"
+                  className="group bg-green-50 border-2 border-green-200 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-3 hover:scale-105"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pastel-blue to-pastel-lavender flex items-center justify-center flex-shrink-0">
-                    <step.icon className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-pastel-text">{step.title}</h4>
-                    <p className="text-sm text-pastel-text-light">{step.description}</p>
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-green-500 flex items-center justify-center flex-shrink-0 text-white font-bold text-sm">
+                      {step.number}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800">{step.title}</h4>
+                      <p className="text-sm text-gray-600">{step.description}</p>
+                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -80,14 +81,20 @@ export default function Solution() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex items-center justify-center"
+            className="flex flex-col items-center justify-center gap-6"
           >
-            <button
-              onClick={() => navigate('/detection')}
-              className="px-12 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 text-lg"
-            >
-              Try Detection
-            </button>
+            <div className="w-full h-96 rounded-2xl bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center overflow-hidden border-2 border-dashed border-gray-400">
+              <img src="./src/assets/img3.png" alt="Infection Detection Example" className="w-full h-full object-cover" />
+            </div>
+            <div className="text-center">
+              <p className="text-sm text-pastel-text-light mb-2">Example: AI detects fungal infection, bacterial infection, or skin disease</p>
+              <button
+                onClick={() => navigate('/detection')}
+                className="px-12 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 text-lg"
+              >
+                Try Detection
+              </button>
+            </div>
           </motion.div>
         </div>
       </div>

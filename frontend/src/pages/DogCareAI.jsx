@@ -13,6 +13,7 @@ const DogCareAI = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showError, setShowError] = useState(false);
   const [scanLoading, setScanLoading] = useState(false);
+  const [boundingBoxes, setBoundingBoxes] = useState([]);
   const [chatMessages, setChatMessages] = useState([
     { type: "bot", text: "Upload an image first. I'll answer based on the detected disease." }
   ]);
@@ -34,6 +35,8 @@ const DogCareAI = () => {
 
   const fileInputRef = useRef(null);
   const chatBoxRef = useRef(null);
+  const canvasRef = useRef(null);
+  const imageRef = useRef(null);
   const API_BASE = "http://127.0.0.1:5000";
 
   const showErrorMsg = (message) => {
@@ -50,6 +53,7 @@ const DogCareAI = () => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
+      setBoundingBoxes([]);
       const reader = new FileReader();
       reader.onload = (event) => {
         setPreviewSrc(event.target.result);
@@ -86,6 +90,7 @@ const DogCareAI = () => {
       setDetectedDisease(data.predicted_class);
       setDiseaseContext(data.ollama_context || "");
       setCurrentSeverity(data.severity);
+      setBoundingBoxes(data.bounding_boxes || []);
 
       setDiseaseData({
         diseaseName: data.predicted_class,
@@ -176,6 +181,56 @@ const DogCareAI = () => {
       chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
     }
   }, [chatMessages]);
+
+  // Draw bounding boxes on the image
+  useEffect(() => {
+    if (canvasRef.current) {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext('2d');
+      
+      // Always clear the canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Only draw if image is loaded and there are boxes
+      if (imageRef.current && boundingBoxes.length > 0) {
+        const image = imageRef.current;
+        
+        // Set canvas size to match image
+        canvas.width = image.offsetWidth;
+        canvas.height = image.offsetHeight;
+        
+        // Redraw after clearing
+        const newCtx = canvas.getContext('2d');
+        
+        // Draw bounding boxes
+        boundingBoxes.forEach((box, index) => {
+          const x = box.x * canvas.width;
+          const y = box.y * canvas.height;
+          const width = box.width * canvas.width;
+          const height = box.height * canvas.height;
+          
+          // Draw rectangle
+          newCtx.strokeStyle = '#ff4444';
+          newCtx.lineWidth = 3;
+          newCtx.strokeRect(x, y, width, height);
+          
+          // Draw label background
+          const label = box.label || `Infection ${index + 1}`;
+          newCtx.font = 'bold 14px Arial';
+          const textMetrics = newCtx.measureText(label);
+          const textWidth = textMetrics.width + 10;
+          const textHeight = 24;
+          
+          newCtx.fillStyle = '#ff4444';
+          newCtx.fillRect(x, y - textHeight, textWidth, textHeight);
+          
+          // Draw label text
+          newCtx.fillStyle = '#ffffff';
+          newCtx.fillText(label, x + 5, y - 6);
+        });
+      }
+    }
+  }, [boundingBoxes, showPreview]);
 
   const handleDownloadReport = () => {
     if (diseaseData.diseaseName === "---") {
@@ -655,7 +710,27 @@ const DogCareAI = () => {
               </div>
 
               <div className={`preview ${showPreview ? 'show' : ''}`}>
-                {showPreview && <img src={previewSrc} alt="Preview" />}
+                {showPreview && (
+                  <div style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
+                    <img 
+                      ref={imageRef}
+                      src={previewSrc} 
+                      alt="Preview" 
+                      style={{ width: '100%', display: 'block' }}
+                    />
+                    <canvas 
+                      ref={canvasRef}
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        cursor: 'crosshair'
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             </div>
 
