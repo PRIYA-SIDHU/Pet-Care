@@ -83,14 +83,14 @@ export default function Solution() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex flex-col items-center justify-center gap-6"
           >
-            <div className="w-full h-96 rounded-2xl bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center overflow-hidden border-2 border-dashed border-gray-400">
-              <img src="./src/assets/img3.png" alt="Infection Detection Example" className="w-full h-full object-cover" />
+            <div className="w-full h-96 rounded-2xl bg-white flex items-center justify-center overflow-hidden shadow-xl">
+              <img src="/src/assets/detection.png" alt="Infection Detection Example" className="w-auto h-auto max-w-full max-h-full object-contain" />
             </div>
             <div className="text-center">
               <p className="text-sm text-pastel-text-light mb-2">Example: AI detects fungal infection, bacterial infection, or skin disease</p>
               <button
                 onClick={() => navigate('/detection')}
-                className="px-12 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 text-lg"
+                className="px-12 py-4 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl hover:from-green-700 hover:to-green-800 transition-all duration-300 text-lg"
               >
                 Try Detection
               </button>
