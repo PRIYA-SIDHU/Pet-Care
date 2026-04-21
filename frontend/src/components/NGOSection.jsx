@@ -34,7 +34,7 @@ const NGOSection = () => {
       name: "Pawsitive Sanctuary",
       description: "Volunteer network for dog rescue and rehabilitation.",
       image: dogImg3,
-      website: "https://share.google/yl6yxqow65zdeEiFp"
+      website: "https://www.pawsitivesanctuary.com"
     },
     {
       id: 4,

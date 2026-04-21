@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Leaf, Heart, Shield } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import dogImage from '../assets/doggroup.jpg'
 
 export default function Hero() {
+  const navigate = useNavigate()
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Full Background Image */}
@@ -107,8 +109,8 @@ export default function Hero() {
             className="flex flex-wrap gap-4"
           >
             <motion.a
-              href="#try"
-              className="group inline-flex items-center gap-3 px-8 py-4 bg-emerald-600 text-white font-semibold rounded-full shadow-lg shadow-emerald-600/30 hover:bg-emerald-700 transition-all duration-300"
+              href="#solution"
+              className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-full shadow-lg shadow-green-200 hover:shadow-xl hover:shadow-green-200/50 transition-all duration-300 cursor-pointer border-none"
               whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
